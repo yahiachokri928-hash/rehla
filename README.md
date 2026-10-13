@@ -28,6 +28,18 @@ L'image perd ses coins arrondis et devient un rectangle carré.
 
 
 Réponse 3: 
-Pour réserver de l'espace à droite afin que le texte ne se superpose pas avec le bouton "Découvrir"[cite: 7].
+Pour réserver de l'espace à droite afin que le texte ne se superpose pas avec le bouton "Découvrir".
 
 ![alt text](image-3.png)
+
+palier4:
+
+
+Réponse 1: 
+Parce que le Spacer a besoin de savoir qu'il y a un espace disponible fini pour s'étendre. Sans Expanded, la Column a une hauteur/largeur infinie ou non contrainte horizontalement.
+
+Réponse 2: 
+Aucune ligne de code à ajouter ! Il suffit d'ajouter la 7e destination dans le fichier `lib/data/destinations.dart` et la boucle `for` s'en chargera automatiquement.
+
+![alt text](image-4.png)
+
