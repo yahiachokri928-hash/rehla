@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../models/destination.dart';
+import 'favorite_button.dart';
 
 class DestinationCard extends StatelessWidget {
   final Destination destination;
@@ -14,9 +16,7 @@ class DestinationCard extends StatelessWidget {
     return Card(
       elevation: 0,
       color: cs.surfaceContainerLow,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       margin: const EdgeInsets.only(bottom: 12),
       child: Padding(
         padding: const EdgeInsets.all(10),
@@ -45,7 +45,11 @@ class DestinationCard extends StatelessWidget {
                   const SizedBox(height: 4),
                   Row(
                     children: [
-                      const Icon(Icons.place_outlined, size: 16, color: Colors.grey),
+                      const Icon(
+                        Icons.place_outlined,
+                        size: 16,
+                        color: Colors.grey,
+                      ),
                       const SizedBox(width: 4),
                       Text(
                         destination.region,
@@ -76,6 +80,8 @@ class DestinationCard extends StatelessWidget {
                 ],
               ),
             ),
+            const SizedBox(width: 8),
+            const FavoriteButton(),
           ],
         ),
       ),

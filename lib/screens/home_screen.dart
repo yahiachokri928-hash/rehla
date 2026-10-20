@@ -16,9 +16,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String _categorie = 'Tout'; // L'état initial : la catégorie choisie
+  String _categorie = 'Tout';
 
-  // Getter bech y-filtré el destinations selon el catégorie elly t5tart
   List<Destination> get _filtrees {
     if (_categorie == 'Tout') {
       return destinations;
@@ -42,7 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 24),
             const SectionTitle(title: 'Catégories'),
             const SizedBox(height: 16),
-
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -63,12 +61,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-
             const SizedBox(height: 16),
             const SectionTitle(title: 'Populaires', action: 'Voir tout'),
             const SizedBox(height: 12),
-
-            for (final d in _filtrees) DestinationCard(destination: d),
+            for (final d in _filtrees)
+              DestinationCard(key: ValueKey(d.nom), destination: d),
           ],
         ),
       ),
