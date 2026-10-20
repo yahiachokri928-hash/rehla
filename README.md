@@ -43,3 +43,17 @@ Aucune ligne de code à ajouter ! Il suffit d'ajouter la 7e destination dans le 
 
 ![alt text](image-4.png)
 
+palier5:
+
+Réponse : 
+À l'écran, rien ne change (la vue ne se met pas à jour). En mémoire, la variable _categorie change bien de valeur, mais Flutter n'est pas notifié qu'il doit redessiner (re-builder) l'interface.
+
+
+Réponse : 
+Pour qu'à chaque fois que setState() s'exécute et que l'écran se re-construit, la liste soit filtrée dynamiquement en fonction de la nouvelle valeur de   categorie.
+
+
+Réponse : 
+Parce que HeroBanner affiche une destination fixe (ici destinations.first) et n'a pas besoin de gérer d'état interne changeant lors du filtrage.
+
+![alt text](image-5.png)
