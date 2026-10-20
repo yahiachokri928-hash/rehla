@@ -61,3 +61,7 @@ Parce que HeroBanner affiche une destination fixe (ici destinations.first) et n'
 palier6:
 
 ![alt text](image-6.png)
+
+palier7:
+
+![alt text](image-7.png)
