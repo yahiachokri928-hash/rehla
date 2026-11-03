@@ -107,3 +107,11 @@ Q3 :
 dispose() permet de libérer les ressources utilisées par les TextEditingController lorsque l'écran est détruit.
 
 Cela évite de conserver inutilement des ressources en mémoire.
+
+palier 4:
+![alt text](image-9.png)
+Q1 :
+Le champ date est en readOnly pour empêcher l'utilisateur de saisir manuellement une date avec le clavier. Il doit choisir une date à partir du calendrier (showDatePicker). Cela garantit un format de date correct et évite les erreurs de saisie. Sans readOnly, l'utilisateur pourrait écrire une date incorrecte ou dans un format non valide.
+
+Q2:
+_total est un getter qui calcule automatiquement le prix total à partir du prix par personne et du nombre de voyageurs. Lorsque la formule change, setState() reconstruit l'interface et le getter est recalculé automatiquement avec la nouvelle valeur de _prixParPersonne. Il n'est donc pas nécessaire de mettre à jour _total
