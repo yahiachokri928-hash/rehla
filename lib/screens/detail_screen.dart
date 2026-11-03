@@ -212,7 +212,9 @@ class _DetailScreenState extends State<DetailScreen> {
               const SizedBox(width: 20),
               Expanded(
                 child: FilledButton(
-                  onPressed: () {}, // TP4 palier 3 puis 5
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }, // TP4 palier 3 puis 5
                   style: FilledButton.styleFrom(
                     minimumSize: const Size.fromHeight(56),
                   ),

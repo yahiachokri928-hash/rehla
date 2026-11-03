@@ -65,3 +65,25 @@ palier6:
 palier7:
 
 ![alt text](image-7.png)
+
+
+
+
+S4 Navigation
+
+Q1:
+Oui, le filtre est conservé.
+HomeScreen reste dans la pile lorsque Navigator.push()
+ouvre DetailScreen. Navigator.pop() retire DetailScreen
+et affiche le même HomeScreen avec son état précédent.
+
+Q2:
+DetailScreen reçoit la destination à travers son constructeur.
+Ce mécanisme réutilise le passage de données entre écrans
+par les paramètres du constructeur, étudié dans le TP3.
+
+Q3:
+Sans clipBehavior, l'effet visuel du InkWell peut dépasser
+les coins arrondis de la carte.
+Clip.antiAlias permet de respecter la forme arrondie.
+
