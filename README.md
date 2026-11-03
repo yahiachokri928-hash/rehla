@@ -115,3 +115,15 @@ Le champ date est en readOnly pour empêcher l'utilisateur de saisir manuellemen
 
 Q2:
 _total est un getter qui calcule automatiquement le prix total à partir du prix par personne et du nombre de voyageurs. Lorsque la formule change, setState() reconstruit l'interface et le getter est recalculé automatiquement avec la nouvelle valeur de _prixParPersonne. Il n'est donc pas nécessaire de mettre à jour _total
+
+palier 5:
+![alt text](image-10.png)
+Q1:
+
+La valeur de reservation est null, car l’utilisateur quitte l’écran sans valider le formulaire. 
+
+Q2:
+VS Code signale qu’on utilise le BuildContext après un await sans vérifier si le widget est toujours monté. Cela signifie que le widget peut avoir été supprimé pendant l’opération asynchrone.
+
+Q3:
+Il permet de fermer la boîte de dialogue (AlertDialog) et de revenir à l’écran précédent. Cela montre que Navigator.pop(context) permet de fermer la page ou le dialogue actuellement affiché.

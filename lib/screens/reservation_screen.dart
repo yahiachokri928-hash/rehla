@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../models/destination.dart';
+import '../models/reservation.dart';
 
 class ReservationScreen extends StatefulWidget {
   final Destination destination;
@@ -120,8 +121,17 @@ class _ReservationScreenState extends State<ReservationScreen> {
       return;
     }
 
-    ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text('Formulaire valide')));
+    final reservation = Reservation(
+      destination: widget.destination,
+      nom: _nomCtrl.text.trim(),
+      email: _emailCtrl.text.trim(),
+      telephone: _telCtrl.text.trim(),
+      dateDepart: _date!,
+      voyageurs: widget.voyageurs,
+      formule: _formule,
+    );
+
+    Navigator.pop(context, reservation);
   }
 
   @override
@@ -130,7 +140,6 @@ class _ReservationScreenState extends State<ReservationScreen> {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Réserver')),
-
       body: Form(
         key: _formKey,
         autovalidateMode: _autoValidation,
@@ -139,7 +148,6 @@ class _ReservationScreenState extends State<ReservationScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Récapitulatif de la destination
               Row(
                 children: [
                   ClipRRect(
@@ -170,7 +178,6 @@ class _ReservationScreenState extends State<ReservationScreen> {
 
               const SizedBox(height: 24),
 
-              // Informations personnelles
               TextFormField(
                 controller: _nomCtrl,
                 decoration: _deco('Nom complet', Icons.person_outline),
@@ -208,7 +215,6 @@ class _ReservationScreenState extends State<ReservationScreen> {
 
               const SizedBox(height: 28),
 
-              // Date et formule
               Text(
                 'Votre voyage',
                 style: Theme.of(context).textTheme.titleLarge,
@@ -224,7 +230,8 @@ class _ReservationScreenState extends State<ReservationScreen> {
                   'Date de départ',
                   Icons.calendar_month_outlined,
                 ),
-                validator: (_) => _date == null ? 'Choisissez une date' : null,
+                validator: (_) =>
+                    _date == null ? 'Choisissez une date' : null,
               ),
 
               const SizedBox(height: 20),
@@ -259,7 +266,6 @@ class _ReservationScreenState extends State<ReservationScreen> {
 
               const SizedBox(height: 16),
 
-              // Conditions d'annulation
               CheckboxListTile(
                 value: _conditions,
                 onChanged: (v) {
@@ -269,15 +275,18 @@ class _ReservationScreenState extends State<ReservationScreen> {
                 },
                 controlAffinity: ListTileControlAffinity.leading,
                 contentPadding: EdgeInsets.zero,
-                title: const Text("J'accepte les conditions d'annulation"),
-                subtitle: const Text("Annulation gratuite jusqu'à 48 h avant"),
+                title: const Text(
+                  "J'accepte les conditions d'annulation",
+                ),
+                subtitle: const Text(
+                  "Annulation gratuite jusqu'à 48 h avant",
+                ),
               ),
             ],
           ),
         ),
       ),
 
-      // Prix et bouton de confirmation
       bottomNavigationBar: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 8, 20, 16),
@@ -288,14 +297,11 @@ class _ReservationScreenState extends State<ReservationScreen> {
                 '$_prixParPersonne DT × ${widget.voyageurs}',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
-
               Text(
                 '$_total DT',
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
-
               const SizedBox(height: 12),
-
               FilledButton.icon(
                 onPressed: _conditions ? _valider : null,
                 icon: const Icon(Icons.check_circle_outline),

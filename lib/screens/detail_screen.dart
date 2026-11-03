@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/destination.dart';
+import '../models/reservation.dart';
 import '../widgets/favorite_button.dart';
 import 'reservation_screen.dart';
 
@@ -15,6 +16,51 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
   int _voyageurs = 1;
+
+  Future<void> _reserver() async {
+    final reservation = await Navigator.push<Reservation>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ReservationScreen(
+          destination: widget.destination,
+          voyageurs: _voyageurs,
+        ),
+      ),
+    );
+
+    if (reservation == null) return;
+
+    if (!mounted) return;
+
+    await showDialog<void>(
+      context: context,
+      builder: (context) => AlertDialog(
+        icon: const Icon(
+          Icons.check_circle,
+          color: Colors.green,
+          size: 48,
+        ),
+        title: const Text('Réservation confirmée'),
+        content: Text(
+          'Nom : ${reservation.nom}\n'
+          'Destination : ${reservation.destination.nom}\n'
+          'Voyageurs : ${reservation.voyageurs}\n'
+          'Formule : ${reservation.formule}\n'
+          'Date : ${reservation.dateDepart.day.toString().padLeft(2, '0')}/'
+          '${reservation.dateDepart.month.toString().padLeft(2, '0')}/'
+          '${reservation.dateDepart.year}\n'
+          'Total : ${reservation.total} DT\n'
+          'E-mail : ${reservation.email}',
+        ),
+        actions: [
+          FilledButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Parfait'),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +130,9 @@ class _DetailScreenState extends State<DetailScreen> {
                               const SizedBox(width: 4),
                               Text(
                                 d.region,
-                                style: TextStyle(color: cs.onSurfaceVariant),
+                                style: TextStyle(
+                                  color: cs.onSurfaceVariant,
+                                ),
                               ),
                             ],
                           ),
@@ -112,7 +160,9 @@ class _DetailScreenState extends State<DetailScreen> {
                           const SizedBox(width: 4),
                           Text(
                             '${d.note}',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ],
                       ),
@@ -163,7 +213,10 @@ class _DetailScreenState extends State<DetailScreen> {
 
                 Text(
                   d.description,
-                  style: TextStyle(height: 1.5, color: cs.onSurfaceVariant),
+                  style: TextStyle(
+                    height: 1.5,
+                    color: cs.onSurfaceVariant,
+                  ),
                 ),
 
                 const SizedBox(height: 24),
@@ -224,7 +277,10 @@ class _DetailScreenState extends State<DetailScreen> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Total', style: TextStyle(color: cs.onSurfaceVariant)),
+                  Text(
+                    'Total',
+                    style: TextStyle(color: cs.onSurfaceVariant),
+                  ),
                   Text(
                     '${d.prix * _voyageurs} DT',
                     style: theme.textTheme.headlineSmall?.copyWith(
@@ -239,17 +295,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
               Expanded(
                 child: FilledButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ReservationScreen(
-                          destination: widget.destination,
-                          voyageurs: _voyageurs,
-                        ),
-                      ),
-                    );
-                  },
+                  onPressed: _reserver,
                   style: FilledButton.styleFrom(
                     minimumSize: const Size.fromHeight(56),
                   ),
@@ -308,9 +354,15 @@ class _InfoTile extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             label,
-            style: TextStyle(fontSize: 12, color: cs.onSurfaceVariant),
+            style: TextStyle(
+              fontSize: 12,
+              color: cs.onSurfaceVariant,
+            ),
           ),
-          Text(valeur, style: const TextStyle(fontWeight: FontWeight.bold)),
+          Text(
+            valeur,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
         ],
       ),
     );
