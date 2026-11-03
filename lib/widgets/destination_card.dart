@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../models/destination.dart';
@@ -18,9 +17,7 @@ class DestinationCard extends StatelessWidget {
     return Card(
       elevation: 0,
       color: cs.surfaceContainerLow,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       margin: const EdgeInsets.only(bottom: 12),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
@@ -37,16 +34,21 @@ class DestinationCard extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: Row(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(14),
-                child: Image.asset(
-                  destination.image,
-                  width: 88,
-                  height: 88,
-                  fit: BoxFit.cover,
+              Hero(
+                tag: 'image-${destination.nom}',
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(14),
+                  child: Image.asset(
+                    destination.image,
+                    width: 88,
+                    height: 88,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
+
               const SizedBox(width: 14),
+
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,7 +59,9 @@ class DestinationCard extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+
                     const SizedBox(height: 4),
+
                     Row(
                       children: [
                         const Icon(
@@ -72,20 +76,16 @@ class DestinationCard extends StatelessWidget {
                         ),
                       ],
                     ),
+
                     const SizedBox(height: 8),
+
                     Row(
                       children: [
-                        const Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                          size: 16,
-                        ),
+                        const Icon(Icons.star, color: Colors.amber, size: 16),
                         const SizedBox(width: 4),
                         Text(
                           '${destination.note}',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                         const Spacer(),
                         Text(
@@ -101,7 +101,9 @@ class DestinationCard extends StatelessWidget {
                   ],
                 ),
               ),
+
               const SizedBox(width: 8),
+
               const FavoriteButton(),
             ],
           ),

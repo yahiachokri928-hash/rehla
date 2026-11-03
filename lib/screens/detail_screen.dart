@@ -35,11 +35,7 @@ class _DetailScreenState extends State<DetailScreen> {
     await showDialog<void>(
       context: context,
       builder: (context) => AlertDialog(
-        icon: const Icon(
-          Icons.check_circle,
-          color: Colors.green,
-          size: 48,
-        ),
+        icon: const Icon(Icons.check_circle, color: Colors.green, size: 48),
         title: const Text('Réservation confirmée'),
         content: Text(
           'Nom : ${reservation.nom}\n'
@@ -77,7 +73,10 @@ class _DetailScreenState extends State<DetailScreen> {
             child: Stack(
               fit: StackFit.expand,
               children: [
-                Image.asset(d.image, fit: BoxFit.cover),
+                Hero(
+                  tag: 'image-${d.nom}',
+                  child: Image.asset(d.image, fit: BoxFit.cover),
+                ),
 
                 Positioned(
                   top: 48,
@@ -119,7 +118,9 @@ class _DetailScreenState extends State<DetailScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
+
                           const SizedBox(height: 4),
+
                           Row(
                             children: [
                               Icon(
@@ -130,9 +131,7 @@ class _DetailScreenState extends State<DetailScreen> {
                               const SizedBox(width: 4),
                               Text(
                                 d.region,
-                                style: TextStyle(
-                                  color: cs.onSurfaceVariant,
-                                ),
+                                style: TextStyle(color: cs.onSurfaceVariant),
                               ),
                             ],
                           ),
@@ -160,9 +159,7 @@ class _DetailScreenState extends State<DetailScreen> {
                           const SizedBox(width: 4),
                           Text(
                             '${d.note}',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -181,7 +178,9 @@ class _DetailScreenState extends State<DetailScreen> {
                         valeur: d.duree,
                       ),
                     ),
+
                     const SizedBox(width: 12),
+
                     Expanded(
                       child: _InfoTile(
                         icone: Icons.category_outlined,
@@ -189,7 +188,9 @@ class _DetailScreenState extends State<DetailScreen> {
                         valeur: d.categorie,
                       ),
                     ),
+
                     const SizedBox(width: 12),
+
                     const Expanded(
                       child: _InfoTile(
                         icone: Icons.groups_outlined,
@@ -213,10 +214,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
                 Text(
                   d.description,
-                  style: TextStyle(
-                    height: 1.5,
-                    color: cs.onSurfaceVariant,
-                  ),
+                  style: TextStyle(height: 1.5, color: cs.onSurfaceVariant),
                 ),
 
                 const SizedBox(height: 24),
@@ -277,10 +275,8 @@ class _DetailScreenState extends State<DetailScreen> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Total',
-                    style: TextStyle(color: cs.onSurfaceVariant),
-                  ),
+                  Text('Total', style: TextStyle(color: cs.onSurfaceVariant)),
+
                   Text(
                     '${d.prix * _voyageurs} DT',
                     style: theme.textTheme.headlineSmall?.copyWith(
@@ -351,18 +347,15 @@ class _InfoTile extends StatelessWidget {
       child: Column(
         children: [
           Icon(icone, color: cs.primary),
+
           const SizedBox(height: 6),
+
           Text(
             label,
-            style: TextStyle(
-              fontSize: 12,
-              color: cs.onSurfaceVariant,
-            ),
+            style: TextStyle(fontSize: 12, color: cs.onSurfaceVariant),
           ),
-          Text(
-            valeur,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
+
+          Text(valeur, style: const TextStyle(fontWeight: FontWeight.bold)),
         ],
       ),
     );
