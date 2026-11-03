@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/destination.dart';
+import '../screens/detail_screen.dart';
 
 class HeroBanner extends StatelessWidget {
   final Destination destination;
@@ -18,10 +19,8 @@ class HeroBanner extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            // Couche 1 : l'image
             Image.asset(destination.image, fit: BoxFit.cover),
 
-            // Couche 2 : dégradé pour la lisibilité du texte blanc
             const DecoratedBox(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -108,7 +107,15 @@ class HeroBanner extends StatelessWidget {
               right: 16,
               bottom: 20,
               child: FilledButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          DetailScreen(destination: destination),
+                    ),
+                  );
+                },
                 style: FilledButton.styleFrom(
                   backgroundColor: cs.primary,
                   shape: RoundedRectangleBorder(

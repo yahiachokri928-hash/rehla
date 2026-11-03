@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 import '../models/destination.dart';
@@ -17,8 +18,11 @@ class DestinationCard extends StatelessWidget {
     return Card(
       elevation: 0,
       color: cs.surfaceContainerLow,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
       margin: const EdgeInsets.only(bottom: 12),
+      clipBehavior: Clip.antiAlias,
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
         onTap: () {
@@ -71,11 +75,17 @@ class DestinationCard extends StatelessWidget {
                     const SizedBox(height: 8),
                     Row(
                       children: [
-                        const Icon(Icons.star, color: Colors.amber, size: 16),
+                        const Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                          size: 16,
+                        ),
                         const SizedBox(width: 4),
                         Text(
                           '${destination.note}',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         const Spacer(),
                         Text(
