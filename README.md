@@ -71,6 +71,7 @@ palier7:
 
 S4 Navigation
 
+palier 2:
 Q1:
 Oui, le filtre est conservé.
 HomeScreen reste dans la pile lorsque Navigator.push()
@@ -87,3 +88,22 @@ Sans clipBehavior, l'effet visuel du InkWell peut dépasser
 les coins arrondis de la carte.
 Clip.antiAlias permet de respecter la forme arrondie.
 
+Palier 3:
+![alt text](image-8.png)
+Q1 :
+
+_formKey.currentState!.validate() vérifie tous les champs du formulaire en exécutant leurs fonctions validator.
+
+Elle renvoie true si tous les champs sont valides, sinon false. Les messages d'erreur s'affichent sous les champs incorrects.
+
+Q2 :
+
+inputFormatters contrôle la saisie pendant que l'utilisateur tape. Il empêche les lettres et limite le téléphone à 8 chiffres.
+
+validator vérifie la valeur saisie lors de la validation du formulaire et affiche un message d'erreur si elle est incorrecte.
+
+Q3 :
+
+dispose() permet de libérer les ressources utilisées par les TextEditingController lorsque l'écran est détruit.
+
+Cela évite de conserver inutilement des ressources en mémoire.

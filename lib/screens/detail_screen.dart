@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../models/destination.dart';
 import '../widgets/favorite_button.dart';
+import 'reservation_screen.dart';
 
-/// Devoir TP3 — Écran de détail d'une destination (version du kit TP4).
-/// À relier aux cartes au palier 2 du TP4.
 class DetailScreen extends StatefulWidget {
   final Destination destination;
 
@@ -33,17 +32,21 @@ class _DetailScreenState extends State<DetailScreen> {
               fit: StackFit.expand,
               children: [
                 Image.asset(d.image, fit: BoxFit.cover),
+
                 Positioned(
                   top: 48,
                   left: 16,
                   child: _BoutonRond(
                     child: IconButton(
                       tooltip: 'Retour',
-                      onPressed: () {}, // TP4 palier 2
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       icon: const Icon(Icons.arrow_back),
                     ),
                   ),
                 ),
+
                 const Positioned(
                   top: 48,
                   right: 16,
@@ -52,6 +55,7 @@ class _DetailScreenState extends State<DetailScreen> {
               ],
             ),
           ),
+
           Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
@@ -87,6 +91,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         ],
                       ),
                     ),
+
                     Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 12,
@@ -114,7 +119,9 @@ class _DetailScreenState extends State<DetailScreen> {
                     ),
                   ],
                 ),
+
                 const SizedBox(height: 20),
+
                 Row(
                   children: [
                     Expanded(
@@ -142,19 +149,25 @@ class _DetailScreenState extends State<DetailScreen> {
                     ),
                   ],
                 ),
+
                 const SizedBox(height: 24),
+
                 Text(
                   'À propos',
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+
                 const SizedBox(height: 8),
+
                 Text(
                   d.description,
                   style: TextStyle(height: 1.5, color: cs.onSurfaceVariant),
                 ),
+
                 const SizedBox(height: 24),
+
                 Row(
                   children: [
                     Expanded(
@@ -165,12 +178,18 @@ class _DetailScreenState extends State<DetailScreen> {
                         ),
                       ),
                     ),
+
                     IconButton.outlined(
                       onPressed: _voyageurs > 1
-                          ? () => setState(() => _voyageurs--)
+                          ? () {
+                              setState(() {
+                                _voyageurs--;
+                              });
+                            }
                           : null,
                       icon: const Icon(Icons.remove),
                     ),
+
                     SizedBox(
                       width: 40,
                       child: Text(
@@ -179,8 +198,13 @@ class _DetailScreenState extends State<DetailScreen> {
                         style: theme.textTheme.titleLarge,
                       ),
                     ),
+
                     IconButton.outlined(
-                      onPressed: () => setState(() => _voyageurs++),
+                      onPressed: () {
+                        setState(() {
+                          _voyageurs++;
+                        });
+                      },
                       icon: const Icon(Icons.add),
                     ),
                   ],
@@ -190,6 +214,7 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
         ],
       ),
+
       bottomNavigationBar: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 8, 20, 16),
@@ -209,12 +234,22 @@ class _DetailScreenState extends State<DetailScreen> {
                   ),
                 ],
               ),
+
               const SizedBox(width: 20),
+
               Expanded(
                 child: FilledButton(
                   onPressed: () {
-                    Navigator.pop(context);
-                  }, // TP4 palier 3 puis 5
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ReservationScreen(
+                          destination: widget.destination,
+                          voyageurs: _voyageurs,
+                        ),
+                      ),
+                    );
+                  },
                   style: FilledButton.styleFrom(
                     minimumSize: const Size.fromHeight(56),
                   ),
