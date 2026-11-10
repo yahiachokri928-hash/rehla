@@ -166,3 +166,21 @@ Une erreur de type peut se produire, car "420" est une chaîne de caractères (S
 
 3.
 Parce que la récupération des données depuis l'API est asynchrone. Future représente un résultat disponible ultérieurement et List<Destination> représente la liste des destinations récupérées.
+
+
+palier 3:
+![alt text](image-16.png)
+
+1.
+
+On utilise late parce que _futureDestinations sera initialisée plus tard, dans initState(), avant son utilisation. Cela permet de déclarer la variable sans lui attribuer immédiatement une valeur.
+
+2.
+
+L'application ne gérerait pas correctement l'erreur de connexion. L'utilisateur pourrait voir un écran vide ou un comportement inattendu au lieu d'un message explicite indiquant que le chargement a échoué.
+
+3.
+
+Non. Les destinations sont déjà récupérées et stockées dans snapshot.data. Le changement de catégorie utilise setState() pour filtrer localement les données, sans envoyer une nouvelle requête à l'API.
+
+palier 4:

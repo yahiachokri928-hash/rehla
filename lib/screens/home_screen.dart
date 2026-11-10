@@ -1,5 +1,7 @@
+
 import 'package:flutter/material.dart';
 
+import '../services/api_service.dart';
 import '../data/destinations.dart';
 import '../models/destination.dart';
 import '../widgets/home_header.dart';
@@ -16,69 +18,145 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _onglet = 0; // État pour l'onglet actif de la barre de navigation
+  late Future<List<Destination>> _futureDestinations;
+
+  int _onglet = 0;
   String _categorie = 'Tout';
 
-  List<Destination> get _filtrees {
-    if (_categorie == 'Tout') {
-      return destinations;
-    } else {
-      return destinations.where((d) => d.categorie == _categorie).toList();
+  @override
+  void initState() {
+    super.initState();
+    _futureDestinations = ApiService.getDestinations();
+  }
+
+  Future<void> _actualiser() async {
+    setState(() {
+      _futureDestinations = ApiService.getDestinations();
+    });
+
+    try {
+      await _futureDestinations;
+    } catch (_) {
+      // L'erreur sera affichée par le FutureBuilder.
     }
   }
 
-  // Méthode qui construit le contenu de l'onglet "Explorer"
   Widget _construireAccueil() {
-    return ListView(
-      padding: const EdgeInsets.all(20),
-      children: [
-        const HomeHeader(prenom: 'Yasmine'),
-        const SizedBox(height: 20),
-        const SearchBox(),
-        const SizedBox(height: 20),
-        HeroBanner(destination: destinations.first),
-        const SizedBox(height: 24),
-        const SectionTitle(title: 'Catégories'),
-        const SizedBox(height: 16),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              for (final c in categories)
-                Padding(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: ChoiceChip(
-                    label: Text(c),
-                    selected: _categorie == c,
-                    onSelected: (_) {
-                      setState(() {
-                        _categorie = c;
-                      });
-                    },
-                  ),
+    return FutureBuilder<List<Destination>>(
+      future: _futureDestinations,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        if (snapshot.hasError) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Impossible de charger les destinations'),
+                const SizedBox(height: 12),
+                ElevatedButton(
+                  onPressed: _actualiser,
+                  child: const Text('Réessayer'),
                 ),
+              ],
+            ),
+          );
+        }
+
+        if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return const Center(
+            child: Text('Aucune destination disponible'),
+          );
+        }
+
+        final listeDestinations = snapshot.data!;
+
+        final destinationsFiltrees = _categorie == 'Tout'
+            ? listeDestinations
+            : listeDestinations
+                .where((d) => d.categorie == _categorie)
+                .toList();
+
+        return RefreshIndicator(
+          onRefresh: _actualiser,
+          child: ListView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            padding: const EdgeInsets.all(20),
+            children: [
+              const HomeHeader(prenom: 'Yasmine'),
+              const SizedBox(height: 20),
+              const SearchBox(),
+              const SizedBox(height: 20),
+              HeroBanner(destination: listeDestinations.first),
+              const SizedBox(height: 24),
+              const SectionTitle(title: 'Catégories'),
+              const SizedBox(height: 16),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    for (final c in categories)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8),
+                        child: ChoiceChip(
+                          label: Text(c),
+                          selected: _categorie == c,
+                          onSelected: (_) {
+                            setState(() {
+                              _categorie = c;
+                            });
+                          },
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+              const SectionTitle(
+                title: 'Populaires',
+                action: 'Voir tout',
+              ),
+              const SizedBox(height: 12),
+              if (destinationsFiltrees.isEmpty)
+                const Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(20),
+                    child: Text('Aucune destination dans cette catégorie'),
+                  ),
+                )
+              else
+                for (final d in destinationsFiltrees)
+                  DestinationCard(
+                    key: ValueKey(d.id),
+                    destination: d,
+                  ),
             ],
           ),
-        ),
-        const SizedBox(height: 16),
-        const SectionTitle(title: 'Populaires', action: 'Voir tout'),
-        const SizedBox(height: 12),
-        for (final d in _filtrees)
-          DestinationCard(
-            key: ValueKey(d.nom),
-            destination: d,
-          ),
-      ],
+        );
+      },
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    // Liste des écrans selon l'onglet sélectionné
     final List<Widget> ecrans = [
       _construireAccueil(),
-      const Center(child: Text('Favoris — Bientôt disponible', style: TextStyle(fontSize: 18))),
-      const Center(child: Text('Profil — Bientôt disponible', style: TextStyle(fontSize: 18))),
+      const Center(
+        child: Text(
+          'Favoris — Bientôt disponible',
+          style: TextStyle(fontSize: 18),
+        ),
+      ),
+      const Center(
+        child: Text(
+          'Profil — Bientôt disponible',
+          style: TextStyle(fontSize: 18),
+        ),
+      ),
     ];
 
     return Scaffold(
