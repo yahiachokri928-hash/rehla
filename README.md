@@ -127,3 +127,29 @@ VS Code signale qu’on utilise le BuildContext après un await sans vérifier s
 
 Q3:
 Il permet de fermer la boîte de dialogue (AlertDialog) et de revenir à l’écran précédent. Cela montre que Navigator.pop(context) permet de fermer la page ou le dialogue actuellement affiché.
+
+
+
+
+
+S5 ConsomationAPI
+
+palier 0:
+
+![alt text](image-11.png)
+![alt text](image-12.png)
+![alt text](image-13.png)
+![alt text](image-14.png)
+![alt text](image-15.png)
+
+1.
+
+L'API retourne une réponse vide, car la destination demandée n'existe pas. Le code HTTP correspondant est 404 Not Found.
+
+2.
+
+C'est JSON Server qui génère automatiquement l'identifiant (id) lors de l'ajout d'une réservation. Flutter envoie uniquement les données de la réservation.
+
+3.
+
+Une requête GET sert à récupérer des données depuis le serveur. Les paramètres nécessaires peuvent être transmis dans l'URL. Une requête POST sert à envoyer de nouvelles données au serveur, donc elle utilise généralement un Body contenant les informations à enregistrer.
