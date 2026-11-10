@@ -184,3 +184,13 @@ L'application ne gérerait pas correctement l'erreur de connexion. L'utilisateur
 Non. Les destinations sont déjà récupérées et stockées dans snapshot.data. Le changement de catégorie utilise setState() pour filtrer localement les données, sans envoyer une nouvelle requête à l'API.
 
 palier 4:
+
+![alt text](image-17.png)
+1.
+Pour éviter de dupliquer les données et réduire la taille de la requête.
+
+2.
+Le serveur risque de ne pas reconnaître les données comme du JSON et de ne pas les traiter correctement.
+
+3.
+Parce que l'utilisateur peut quitter l'écran pendant l'attente. mounted vérifie que le widget existe encore avant d'utiliser context ou setState.

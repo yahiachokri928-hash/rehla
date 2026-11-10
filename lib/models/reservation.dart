@@ -24,4 +24,18 @@ class Reservation {
       : destination.prix;
 
   int get total => prixParPersonne * voyageurs;
+
+  Map<String, dynamic> toJson() {
+    return {
+      'destinationId': destination.id,
+      'nom': nom,
+      'email': email,
+      'telephone': telephone,
+      'dateDepart': dateDepart.toIso8601String(),
+      'voyageurs': voyageurs,
+      'formule': formule,
+      'prixParPersonne': prixParPersonne,
+      'total': total,
+    };
+  }
 }
