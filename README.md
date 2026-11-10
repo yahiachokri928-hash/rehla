@@ -153,3 +153,16 @@ C'est JSON Server qui génère automatiquement l'identifiant (id) lors de l'ajou
 3.
 
 Une requête GET sert à récupérer des données depuis le serveur. Les paramètres nécessaires peuvent être transmis dans l'URL. Une requête POST sert à envoyer de nouvelles données au serveur, donc elle utilise généralement un Body contenant les informations à enregistrer.
+
+palier 2: 
+
+1.
+
+Le constructeur factory permet de créer et de retourner une instance de Destination à partir des données JSON. Il facilite la conversion des données reçues de l'API en objets Dart.
+
+2.
+
+Une erreur de type peut se produire, car "420" est une chaîne de caractères (String) alors que prix est un entier (int). Il faut convertir la valeur avec int.parse() ou int.tryParse().
+
+3.
+Parce que la récupération des données depuis l'API est asynchrone. Future représente un résultat disponible ultérieurement et List<Destination> représente la liste des destinations récupérées.
