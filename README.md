@@ -194,3 +194,13 @@ Le serveur risque de ne pas reconnaître les données comme du JSON et de ne pas
 
 3.
 Parce que l'utilisateur peut quitter l'écran pendant l'attente. mounted vérifie que le widget existe encore avant d'utiliser context ou setState.
+
+---
+
+TP 6 — 
+
+Partie 1 — Créer une branche
+
+Q1.
+
+La branche `main` reste totalement intacte et fonctionnelle. Les modifications et erreurs éventuelles commises sur la branche `feature/favoris` sont complètement isolées. Tant que cette branche n'est pas fusionnée (`merge`) dans `main`, la branche `main` conserve son code stable d'origine sans aucun impact.
