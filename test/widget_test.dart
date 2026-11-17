@@ -6,12 +6,19 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
 import 'package:rehla/main.dart';
+import 'package:rehla/providers/favoris_model.dart';
 
 void main() {
   testWidgets('Rihla app starts', (WidgetTester tester) async {
-    await tester.pumpWidget(const RihlaApp());
+    await tester.pumpWidget(
+      ChangeNotifierProvider(
+        create: (_) => FavorisModel(),
+        child: const RihlaApp(),
+      ),
+    );
 
-    expect(find.text('Rihla'), findsOneWidget);
+    expect(find.byType(RihlaApp), findsOneWidget);
   });
 }

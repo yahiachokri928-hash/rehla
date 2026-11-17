@@ -92,10 +92,10 @@ class _DetailScreenState extends State<DetailScreen> {
                   ),
                 ),
 
-                const Positioned(
+                Positioned(
                   top: 48,
                   right: 16,
-                  child: _BoutonRond(child: FavoriteButton()),
+                  child: _BoutonRond(child: FavoriteButton(destination: d)),
                 ),
               ],
             ),

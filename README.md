@@ -194,3 +194,27 @@ Le serveur risque de ne pas reconnaître les données comme du JSON et de ne pas
 
 3.
 Parce que l'utilisateur peut quitter l'écran pendant l'attente. mounted vérifie que le widget existe encore avant d'utiliser context ou setState.
+
+---
+
+TP 6 — 
+
+Partie 1 — Créer une branche
+
+Q1.
+
+La branche `main` reste totalement intacte et fonctionnelle. Les modifications et erreurs éventuelles commises sur la branche `feature/favoris` sont complètement isolées. Tant que cette branche n'est pas fusionnée (`merge`) dans `main`, la branche `main` conserve son code stable d'origine sans aucun impact.
+
+Partie 2 — 
+
+Q1 :
+Parce qu'il ne détient plus d'état mutable local (`State`). L'état est géré de manière globale par `FavorisModel`. Dès qu'une modification intervient et que `notifyListeners()` est appelé, `context.watch<FavorisModel>()` reconstruit le widget avec son nouvel affichage (cœur plein ou vide) sans nécessiter de `setState()`.
+
+Q2 :
+À chaque rechargement depuis json-server, de nouvelles instances de `Destination` sont créées en mémoire avec des adresses/références différentes. En stockant par clé `id` unique dans une `Map<String, Destination>`, on garantit l'unicité et la bonne identification de la destination, évitant les incohérences de comparaison d'objets en mémoire.
+
+Q3 :
+Le Hot Restart réinitialise totalement l'état de la machine virtuelle Dart (Dart VM) et remet la mémoire vive (RAM) à zéro. Comme les données du `FavorisModel` sont actuellement conservées uniquement en mémoire vive sans persistance (disque ou `shared_preferences`), elles sont remises à leur valeur initiale par défaut (vide).
+
+
+

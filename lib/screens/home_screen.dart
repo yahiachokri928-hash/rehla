@@ -1,14 +1,17 @@
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../services/api_service.dart';
 import '../data/destinations.dart';
 import '../models/destination.dart';
+import '../providers/favoris_model.dart';
 import '../widgets/home_header.dart';
 import '../widgets/search_box.dart';
 import '../widgets/hero_banner.dart';
 import '../widgets/section_title.dart';
 import '../widgets/destination_card.dart';
+import 'favoris_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -143,17 +146,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final nbFavoris = context.watch<FavorisModel>().nombre;
+
     final List<Widget> ecrans = [
       _construireAccueil(),
+      const FavorisScreen(),
       const Center(
         child: Text(
-          'Favoris — Bientôt disponible',
-          style: TextStyle(fontSize: 18),
-        ),
-      ),
-      const Center(
-        child: Text(
-          'Profil — Bientôt disponible',
+          'Voyages — Bientôt disponible',
           style: TextStyle(fontSize: 18),
         ),
       ),
@@ -170,21 +170,29 @@ class _HomeScreenState extends State<HomeScreen> {
             _onglet = index;
           });
         },
-        destinations: const [
-          NavigationDestination(
+        destinations: [
+          const NavigationDestination(
             icon: Icon(Icons.explore_outlined),
             selectedIcon: Icon(Icons.explore),
             label: 'Explorer',
           ),
           NavigationDestination(
-            icon: Icon(Icons.favorite_outline),
-            selectedIcon: Icon(Icons.favorite),
+            icon: Badge(
+              isLabelVisible: nbFavoris > 0,
+              label: Text('$nbFavoris'),
+              child: const Icon(Icons.favorite_outline),
+            ),
+            selectedIcon: Badge(
+              isLabelVisible: nbFavoris > 0,
+              label: Text('$nbFavoris'),
+              child: const Icon(Icons.favorite),
+            ),
             label: 'Favoris',
           ),
-          NavigationDestination(
-            icon: Icon(Icons.person_outline),
-            selectedIcon: Icon(Icons.person),
-            label: 'Profil',
+          const NavigationDestination(
+            icon: Icon(Icons.luggage_outlined),
+            selectedIcon: Icon(Icons.luggage),
+            label: 'Voyages',
           ),
         ],
       ),
