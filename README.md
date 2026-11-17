@@ -216,5 +216,16 @@ Q2 :
 Q3 :
 Le Hot Restart réinitialise totalement l'état de la machine virtuelle Dart (Dart VM) et remet la mémoire vive (RAM) à zéro. Comme les données du `FavorisModel` sont actuellement conservées uniquement en mémoire vive sans persistance (disque ou `shared_preferences`), elles sont remises à leur valeur initiale par défaut (vide).
 
+Partie 4 — 
+
+Q1 :
+Pourquoi la Partie 3 n'a-t-elle produit aucun conflit ?
+Parce que la branche `main` n'avait reçu aucun nouveau commit depuis la création de la branche `feature/favoris`. Git a donc pu intégrer facilement les modifications (historique linéaire / fast-forward ou merge sans divergence sur les mêmes lignes).
+
+Q2 :
+Que se passe-t-il si vous oubliez de supprimer un marqueur ======= ?
+Le code source comportera une erreur de syntaxe Dart (`SyntaxError`), car les marqueurs de conflit Git (`<<<<<<<`, `=======`, `>>>>>>>`) ne constituent pas du code Dart valide. En conséquence, l'application ne pourra pas compiler et `flutter run` échouera.
+
+
 
 
